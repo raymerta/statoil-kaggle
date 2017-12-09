@@ -16,11 +16,16 @@ def index():
 	#print(data[0])
 
 	with open('static/json/train.json', 'r') as f:
-		data = json.load(f)
+		train = json.load(f)
+		train_length = len(train)
+
+	with open('static/json/test.json', 'r') as f:
+		test = json.load(f)
+		test_length = len(test)
 
 	#print (data[0])
 
-	return render_template('index.html', data = data)
+	return render_template('index.html', train = train, test = test, train_length = train_length, test_length = test_length)
 
 @app.route('/data/<path:path>')
 def send_json(path):

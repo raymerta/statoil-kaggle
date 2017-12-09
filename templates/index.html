@@ -2,9 +2,81 @@
 
 {% block content %}
 
-<h1>Hello World</h1>
+<h1>Train Data (train.json)</h1>
 
-<p>{{ data }}</p>
+<table>
+	<tr>
+		<td>Keys</td>
+		<td>:</td>
+		<td>{{ train[0].keys() }}</td>
+	</tr>
+	<tr>
+		<td>Data length</td>
+		<td>:</td>
+		<td>{{ train_length }}</td>
+	</tr>
+</table>
+
+<table style="display:none;">
+	<tr>
+		<td>is_iceberg</td>
+		<td>:</td>
+		<td>{{ train[0]['is_iceberg'] }}</td>
+	</tr>
+	<tr>
+		<td>inc_angle</td>
+		<td>:</td>
+		<td>{{ train[0]['inc_angle'] }}</td>
+	</tr>	
+	<tr>
+		<td>band_2</td>
+		<td>:</td>
+		<td>{{ train[0]['band_2'] }}</td>
+	</tr>
+	<tr>
+		<td>band_1</td>
+		<td>:</td>
+		<td>{{ train[0]['band_1'] }}</td>
+	</tr>
+</table>
+
+<h1>Test Data (test.json)</h1>
+
+<table>
+	<tr>
+		<td>Keys</td>
+		<td>:</td>
+		<td>{{ test[0].keys() }}</td>
+	</tr>
+	<tr>
+		<td>Data length</td>
+		<td>:</td>
+		<td>{{ test_length }}</td>
+	</tr>
+</table>
+
+<table style="display:none;">
+	<tr>
+		<td>is_iceberg</td>
+		<td>:</td>
+		<td>{{ test[0]['is_iceberg'] }}</td>
+	</tr>
+	<tr>
+		<td>inc_angle</td>
+		<td>:</td>
+		<td>{{ test[0]['inc_angle'] }}</td>
+	</tr>	
+	<tr>
+		<td>band_2</td>
+		<td>:</td>
+		<td>{{ test[0]['band_2'] }}</td>
+	</tr>
+	<tr>
+		<td>band_1</td>
+		<td>:</td>
+		<td>{{ test[0]['band_1'] }}</td>
+	</tr>
+</table>
 
 {% endblock %}
 
