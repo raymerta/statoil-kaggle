@@ -2,6 +2,8 @@ from PIL import Image
 import numpy as np
 import matplotlib as mpl
 import matplotlib.cm as cm
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import json
 
 w, h = 75, 75
@@ -21,20 +23,26 @@ with open('train_single.json', 'r') as f:
 	band1range = band1max - band1min
 
 	# trying to assign color to the array
-	norm = mpl.colors.Normalize(vmin=band1min, vmax=band1max)
+	#print (cm.hot(0.3))
+
+	norm = mpl.colors.Normalize(vmin=-20, vmax=10)
 	cmap = cm.hot
 	m = cm.ScalarMappable(norm=norm, cmap=cmap)
 
-	#print m.to_rgba(x)
-
-	band1color = []
 	# assigning color value to array
+	band1color = []
 	for a in train['band_1']:
-		band1color.append(m.to_rgba(a))
+		decval = (a - band1min) / band1range
+		torgb = int(decval * 255)
+		band1color.append([torgb, torgb, torgb])
 
-	band1array = np.array(band1color)
-	print(band1color[0])
+	for a in range(w):
+		for b in range(h): 
+			data[a,b] = band1color[a + b]
 
+	img = Image.fromarray(data, 'RGB')
+	img.save('pic0.png')
+	img.show()
 
 	#print ("band_1 max value: " + str(band1max))
 	#print ("band_1 min value: " + str(band1min))
