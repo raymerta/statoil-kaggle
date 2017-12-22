@@ -1,0 +1,34 @@
+---
+title: "Statoil Iceberg Classification"
+author: "Liem Radita Tapaning Hesti & Theodore Heiser"
+date: "12/11/2017"
+output: [html_document, github_document]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background
+
+Our project sponsor, Statoil, has operations in a variety of offshore operations, many of which are in waters with a occasional presence of icebergs. These icebergs pose a safety threat, and there are different methods to detect their presence. Shore-based support and aerial reconnaissance are infeasible in remote locations with harsh weather. So it is up to satellite imagery to act as the sole monitor at these locations. Statoil has teamed up with the satellite imagery company, C-CORE, to provide them with the data and are hoping that Kaggle participants can provide new and perhaps valuable techniques to help early detection of icebergs. By doing this more accurately the company hopes the improve operation safety and drive down costs of maintaining a safe working environment. 
+
+## Data Exploration
+
+### Load train data
+
+```{r cars}
+library("rjson")
+result <- fromJSON(file = "static/json/train.json")
+print(result)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

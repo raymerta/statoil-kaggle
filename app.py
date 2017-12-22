@@ -21,11 +21,17 @@ def index():
 		train_band1_length = len(train[0]['band_1'])
 		train_band2_length = len(train[0]['band_1'])
 
+	with open('static/json/train_single.json', 'w') as outfile:
+		json.dump(train[0], outfile)
+
 	with open('static/json/test.json', 'r') as f:
 		test = json.load(f)
 		test_length = len(test)
 		test_band1_length = len(test[0]['band_1'])
 		test_band2_length = len(test[0]['band_2'])
+
+	with open('static/json/test_single.json', 'w') as outfile:
+		json.dump(test[0], outfile)
 
 	#print (data[0])
 
@@ -39,6 +45,14 @@ def index():
 		test_band1_length = test_band1_length,
 		test_band2_length = test_band2_length)
 
+@app.route('/image')
+def show_image():
+	return render_template('image.html')
+
 @app.route('/data/<path:path>')
 def send_json(path):
     return send_from_directory('static', path)
+
+@app.route('/test/<path:path>')
+def get_test(path):
+    return send_from_directory('test', path)

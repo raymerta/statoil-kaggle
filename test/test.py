@@ -13,10 +13,10 @@ data = np.zeros((h, w, 3), dtype=np.uint8)
 # img.save('my.png')
 # img.show()
 
+# fill n with number of json file you want to access
+n = 35
 
-
-
-with open('train_single.json', 'r') as f:
+with open('train_single_' + str(n) + '.json', 'r') as f:
 	train = json.load(f)
 	band1max = max(train['band_1'])
 	band1min = min(train['band_1'])
@@ -41,7 +41,7 @@ with open('train_single.json', 'r') as f:
 			data[a,b] = band1color[a + b]
 
 	img = Image.fromarray(data, 'RGB')
-	img.save('pic0.png')
+	img.save('pic' + str(n) + '.png')
 	img.show()
 
 	#print ("band_1 max value: " + str(band1max))
