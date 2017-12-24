@@ -62,13 +62,13 @@ def getModel():
 
     #Dense Layers
     gmodel.add(Dense(512))
-    model.add(BatchNormalization())
+    gmodel.add(BatchNormalization())
     gmodel.add(Activation('relu'))
     gmodel.add(Dropout(0.2))
 
     #Dense Layer 2
     gmodel.add(Dense(256))
-    model.add(BatchNormalization())
+    gmodel.add(BatchNormalization())
     gmodel.add(Activation('relu'))
     gmodel.add(Dropout(0.2))
 
