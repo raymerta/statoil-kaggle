@@ -11,6 +11,11 @@ How to run the application:
 - Run run.sh (./run.sh)
 - Open localhost:5000 
 
+## Jupyter notebook
+
+- there's data-exploration notebook file
+- it has images from the ship and icebergs also general information about the data
+
 ## Playing around with the data
 
 - go to test folder
