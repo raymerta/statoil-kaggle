@@ -14,10 +14,19 @@ icebergs_band1 = icebergs.band_1
 for index, row in icebergs.iterrows(): 
 	#print(row['band_1'])
 	arr = np.reshape(np.array(row['band_1']),(75,75))
-	plt.imsave('img/icebergs/band1/' + str(index) + '-' + str(round(row['inc_angle'])) + '.png', arr, cmap=plt.cm.jet)
+	plt.imsave('img/icebergs/band1/' + str(index) + '-' + str(row['inc_angle']) + '.png', arr, cmap=plt.cm.jet)
 
+	arr = np.reshape(np.array(row['band_2']),(75,75))
+	plt.imsave('img/icebergs/band2/' + str(index) + '-' + str(row['inc_angle']) + '.png', arr, cmap=plt.cm.jet)
+
+
+for index, row in ships.iterrows(): 
+	#print(row['band_1'])
 	arr = np.reshape(np.array(row['band_1']),(75,75))
-	plt.imsave('img/icebergs/band1/' + str(index) + '-' + str(round(row['inc_angle'])) + '.png', arr, cmap=plt.cm.jet)
+	plt.imsave('img/ships/band1/' + str(index) + '-' + str(row['inc_angle']) + '.png', arr, cmap=plt.cm.jet)
+
+	arr = np.reshape(np.array(row['band_2']),(75,75))
+	plt.imsave('img/ships/band2/' + str(index) + '-' + str(row['inc_angle']) + '.png', arr, cmap=plt.cm.jet)
 
 
 
