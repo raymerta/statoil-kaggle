@@ -62,13 +62,11 @@ def getModel():
 
     #Dense Layers
     gmodel.add(Dense(512))
-    gmodel.add(BatchNormalization())
     gmodel.add(Activation('relu'))
     gmodel.add(Dropout(0.2))
 
     #Dense Layer 2
     gmodel.add(Dense(256))
-    gmodel.add(BatchNormalization())
     gmodel.add(Activation('relu'))
     gmodel.add(Dropout(0.2))
 
@@ -119,4 +117,6 @@ predicted_test=gmodel.predict_proba(X_test)
 submission = pd.DataFrame()
 submission['id']=test['id']
 submission['is_iceberg']=predicted_test.reshape((predicted_test.shape[0]))
-submission.to_csv('sub.csv', index=False)
+
+from time import gmtime, strftime
+submission.to_csv('submission_' + strftime("%d_%H_%M_%S", gmtime()) + '.csv', index=False)
