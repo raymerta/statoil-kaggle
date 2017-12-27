@@ -47,6 +47,9 @@ from keras import initializers
 from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
 
+
+
+
 #define our model
 def getModel():
     #Building the model
@@ -70,40 +73,7 @@ def getModel():
     #Flatten the data for upcoming dense layers
     gmodel.add(Flatten())
     #Dense Layers
-    gmodel.add(Dense(512))from matplotlib import pyplot
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, Activation
-from keras.layers import GlobalMaxPooling2D
-from keras.layers.normalization import BatchNormalization
-from keras.layers.merge import Concatenate
-from keras.models import Model
-from keras import initializers
-from keras.optimizers import Adam
-from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
-
-#define our model
-def getModel():
-    #Building the model
-    gmodel=Sequential()
-    #Conv Layer 1
-    gmodel.add(Conv2D(64, kernel_size=(3, 3),activation='relu', input_shape=(75, 75, 3)))
-    gmodel.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
-    gmodel.add(Dropout(0.2))
-    #Conv Layer 2
-    gmodel.add(Conv2D(128, kernel_size=(3, 3), activation='relu' ))
-    gmodel.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    gmodel.add(Dropout(0.2))
-    #Conv Layer 3
-    gmodel.add(Conv2D(128, kernel_size=(3, 3), activation='relu'))
-    gmodel.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    gmodel.add(Dropout(0.2))
-    #Conv Layer 4
-    gmodel.add(Conv2D(64, kernel_size=(3, 3), activation='relu'))
-    gmodel.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    gmodel.add(Dropout(0.2))
-    #Flatten the data for upcoming dense layers
-    gmodel.add(Flatten())
+    gmodel.add(Dense(512))
     gmodel.add(Activation('relu'))
     gmodel.add(Dropout(0.2))
     #Dense Layer 2
@@ -126,7 +96,7 @@ def get_callbacks(filepath, patience=2):
     return [es, msave]
 
 
-file_path = ".model_weights.hdf5"
+file_path = ".model_weights_8aug.hdf5"
 callbacks = get_callbacks(filepath=file_path, patience=5)
 
 tr=train['is_iceberg']
