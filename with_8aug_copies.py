@@ -7,6 +7,22 @@ from mpl_toolkits.mplot3d import Axes3D
 import pylab
 #matplotlib inline
 
+#Import Keras.
+from matplotlib import pyplot
+from keras.preprocessing.image import ImageDataGenerator
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, Activation
+from keras.layers import GlobalMaxPooling2D
+from keras.layers.normalization import BatchNormalization
+from keras.layers.merge import Concatenate
+from keras.models import Model
+from keras import initializers
+from keras.optimizers import Adam
+from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
+
+
+
+
 #Load the data.
 train = pd.read_json("static/json/train.json")
 
@@ -32,21 +48,6 @@ X_band_1=makeAugmentedCopies(X_band_1)
 X_band_2=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in train["band_2"]])
 X_band_2=makeAugmentedCopies(X_band_2)
 X_train = np.concatenate([X_band_1[:, :, :, np.newaxis], X_band_2[:, :, :, np.newaxis],((X_band_1+X_band_2)/2)[:, :, :, np.newaxis]], axis=-1)
-
-
-#Import Keras.
-from matplotlib import pyplot
-from keras.preprocessing.image import ImageDataGenerator
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, Activation
-from keras.layers import GlobalMaxPooling2D
-from keras.layers.normalization import BatchNormalization
-from keras.layers.merge import Concatenate
-from keras.models import Model
-from keras import initializers
-from keras.optimizers import Adam
-from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
-
 
 
 
@@ -97,7 +98,7 @@ def get_callbacks(filepath, patience=2):
 
 
 file_path = ".model_weights_8aug.hdf5"
-callbacks = get_callbacks(filepath=file_path, patience=5)
+callbacks = get_callbacks(filepath=file_path, patience=10)
 
 tr=train['is_iceberg']
 target_train=np.concatenate((tr,tr,tr,tr,tr,tr,tr,tr), axis=0)
