@@ -1,0 +1,99 @@
+<tr>
+<td>1a58d98b</td>
+<td><img src="img/comp/1a58d98b-band_1.png"/></td>
+<td><img src="img/comp/1a58d98b-band_2.png"/></td>
+<td><img src="img/comp/1a58d98b-comb_blue.png"/></td>
+<td><img src="img/comp/1a58d98b-comb_green.png"/></td>
+<td><img src="img/comp/1a58d98b-comb_red.png"/></td>
+<td><img src="img/comp/1a58d98b-comp.png"/></td>
+<td>ship</td>
+<td>43.1055</td>
+</tr>
+<tr>
+<td>2dfb666c</td>
+<td><img src="img/comp/2dfb666c-band_1.png"/></td>
+<td><img src="img/comp/2dfb666c-band_2.png"/></td>
+<td><img src="img/comp/2dfb666c-comb_blue.png"/></td>
+<td><img src="img/comp/2dfb666c-comb_green.png"/></td>
+<td><img src="img/comp/2dfb666c-comb_red.png"/></td>
+<td><img src="img/comp/2dfb666c-comp.png"/></td>
+<td>iceberg</td>
+<td>45.2859</td>
+</tr>
+<tr>
+<td>11581b71</td>
+<td><img src="img/comp/11581b71-band_1.png"/></td>
+<td><img src="img/comp/11581b71-band_2.png"/></td>
+<td><img src="img/comp/11581b71-comb_blue.png"/></td>
+<td><img src="img/comp/11581b71-comb_green.png"/></td>
+<td><img src="img/comp/11581b71-comb_red.png"/></td>
+<td><img src="img/comp/11581b71-comp.png"/></td>
+<td>iceberg</td>
+<td>45.4055</td>
+</tr>
+<tr>
+<td>65460dbe</td>
+<td><img src="img/comp/65460dbe-band_1.png"/></td>
+<td><img src="img/comp/65460dbe-band_2.png"/></td>
+<td><img src="img/comp/65460dbe-comb_blue.png"/></td>
+<td><img src="img/comp/65460dbe-comb_green.png"/></td>
+<td><img src="img/comp/65460dbe-comb_red.png"/></td>
+<td><img src="img/comp/65460dbe-comp.png"/></td>
+<td>ship</td>
+<td>35.6698</td>
+</tr>
+<tr>
+<td>010355ab</td>
+<td><img src="img/comp/010355ab-band_1.png"/></td>
+<td><img src="img/comp/010355ab-band_2.png"/></td>
+<td><img src="img/comp/010355ab-comb_blue.png"/></td>
+<td><img src="img/comp/010355ab-comb_green.png"/></td>
+<td><img src="img/comp/010355ab-comb_red.png"/></td>
+<td><img src="img/comp/010355ab-comp.png"/></td>
+<td>iceberg</td>
+<td>39.9784</td>
+</tr>
+<tr>
+<td>824277c3</td>
+<td><img src="img/comp/824277c3-band_1.png"/></td>
+<td><img src="img/comp/824277c3-band_2.png"/></td>
+<td><img src="img/comp/824277c3-comb_blue.png"/></td>
+<td><img src="img/comp/824277c3-comb_green.png"/></td>
+<td><img src="img/comp/824277c3-comb_red.png"/></td>
+<td><img src="img/comp/824277c3-comp.png"/></td>
+<td>ship</td>
+<td>45.9375</td>
+</tr>
+<tr>
+<td>8f7cfa57</td>
+<td><img src="img/comp/8f7cfa57-band_1.png"/></td>
+<td><img src="img/comp/8f7cfa57-band_2.png"/></td>
+<td><img src="img/comp/8f7cfa57-comb_blue.png"/></td>
+<td><img src="img/comp/8f7cfa57-comb_green.png"/></td>
+<td><img src="img/comp/8f7cfa57-comb_red.png"/></td>
+<td><img src="img/comp/8f7cfa57-comp.png"/></td>
+<td>iceberg</td>
+<td>39.9798</td>
+</tr>
+<tr>
+<td>cc2d6324</td>
+<td><img src="img/comp/cc2d6324-band_1.png"/></td>
+<td><img src="img/comp/cc2d6324-band_2.png"/></td>
+<td><img src="img/comp/cc2d6324-comb_blue.png"/></td>
+<td><img src="img/comp/cc2d6324-comb_green.png"/></td>
+<td><img src="img/comp/cc2d6324-comb_red.png"/></td>
+<td><img src="img/comp/cc2d6324-comp.png"/></td>
+<td>iceberg</td>
+<td>42.5591</td>
+</tr>
+<tr>
+<td>1e7ff021</td>
+<td><img src="img/comp/1e7ff021-band_1.png"/></td>
+<td><img src="img/comp/1e7ff021-band_2.png"/></td>
+<td><img src="img/comp/1e7ff021-comb_blue.png"/></td>
+<td><img src="img/comp/1e7ff021-comb_green.png"/></td>
+<td><img src="img/comp/1e7ff021-comb_red.png"/></td>
+<td><img src="img/comp/1e7ff021-comp.png"/></td>
+<td>ship</td>
+<td>41.8809</td>
+</tr>
