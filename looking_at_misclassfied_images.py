@@ -108,28 +108,21 @@ print('Test accuracy:', score[1])
 
 
 
-X_band_test_1=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in test["band_1"]])
-X_band_test_2=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in test["band_2"]])
-X_test = np.concatenate([X_band_test_1[:, :, :, np.newaxis]
-                          , X_band_test_2[:, :, :, np.newaxis]
-                         , ((X_band_test_1+X_band_test_2)/2)[:, :, :, np.newaxis]], axis=-1)
-predicted_test=gmodel.predict_proba(X_test)
 
-
-submission = pd.DataFrame()
-submission['id']=test['id']
-submission['is_iceberg']=predicted_test.reshape((predicted_test.shape[0]))
-
-
-sample = train.reindex(np.random.permutation(train.index)).iloc[1:10]
-sample_1=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in train["band_1"]])
-sample_2=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in train["band_2"]])
+sample = train.reindex(np.random.permutation(train.index)).iloc[1:1000]
+sample_1=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in sample["band_1"]])
+sample_2=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in sample["band_2"]])
 sample_combine = np.concatenate([sample_1[:, :, :, np.newaxis], sample_2[:, :, :, np.newaxis],((sample_1+sample_2)/2)[:, :, :, np.newaxis]], axis=-1)
-sample_id = sample['id']
+sample_id = sample['id'].values
 sample_X = sample_combine
-sample_y = sample['is_iceberg']
-predicted_sample=gmodel.predict_proba(X_valid)
+sample_y = sample['is_iceberg'].values
+predicted_sample=gmodel.predict_classes(sample_X)
 misclassified_images = []
 for i in range(len(sample_id)):
-    if round(predicted_sample[i][0], 0) == sample_y.iloc[i]:
-        misclassified_images.append(sample_id.iloc[i])
+    if predicted_sample[i] != sample_y[i]:
+        misclassified_images.append(sample_id[i])
+
+
+
+for i in range(len(misclassified_images)):
+    print(str(misclassified_images[i]))
