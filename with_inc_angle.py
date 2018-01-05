@@ -14,7 +14,7 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Input, Flatten, Activation
 from keras.layers import GlobalMaxPooling2D
 from keras.layers.normalization import BatchNormalization
-from keras.layers.merge import Concatenate
+from keras.layers import Concatenate, Dense, LSTM, Input, concatenate
 from keras.models import Model
 from keras import initializers
 from keras.optimizers import Adam
@@ -25,9 +25,10 @@ from keras.callbacks import ModelCheckpoint, Callback, EarlyStopping
 
 #Load the data.
 train = pd.read_json("static/json/train.json")
-
+train['inc_angle'] = train['inc_angle'].replace('na', 0.).astype(np.float32)
 
 test = pd.read_json("static/json/test.json")
+test['inc_angle'] = test['inc_angle'].replace('na', 0.).astype(np.float32)
 
 #Generate the training data
 #Create 3 bands having HH, HV and avg of both
@@ -49,41 +50,62 @@ X_band_2=np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in
 X_band_2=makeAugmentedCopies(X_band_2)
 X_train = np.concatenate([X_band_1[:, :, :, np.newaxis], X_band_2[:, :, :, np.newaxis],((X_band_1+X_band_2)/2)[:, :, :, np.newaxis]], axis=-1)
 
+ang = train['inc_angle']
+angles_train=np.concatenate((ang,ang,ang,ang,ang,ang,ang,ang), axis=0)
 
 
 def getModel():
-    p_activation = "elu"
+    p_activation = "relu"
+    #
+    image_input = Input(shape=(75, 75, 3))
+    other_input = Input(shape=(1,))
     #Building the model
-    gmodel=Sequential()
+    model=Sequential()
+    #
+    #
     #Conv Layer 1
-    gmodel.add(Conv2D(16, kernel_size = (3,3), activation=p_activation, input_shape=(75, 75, 3)))
-    gmodel.add(MaxPooling2D((2,2)))
-    gmodel.add(Dropout(0.2))
+    gmodel = Conv2D(16, kernel_size = (3,3), activation=p_activation, input_shape=(75, 75, 3))(image_input)
+    gmodel = Dropout(0.2)(gmodel)
+    gmodel = BatchNormalization()(gmodel)
     #Conv Layer 2
-    gmodel.add(Conv2D(32, kernel_size = (3,3), activation=p_activation))
-    gmodel.add(MaxPooling2D((2,2)))
-    gmodel.add(Dropout(0.2))
+    gmodel = Conv2D(32, kernel_size = (3,3), activation=p_activation)(gmodel)
+    gmodel = Dropout(0.2)(gmodel)
+    gmodel = BatchNormalization()(gmodel)
+    gmodel = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(gmodel)
     #Conv Layer 3
-    gmodel.add(Conv2D(64, kernel_size = (3,3), activation=p_activation))
-    gmodel.add(MaxPooling2D((2,2)))
-    gmodel.add(Dropout(0.2))
+    gmodel = Conv2D(64, kernel_size = (3,3), activation=p_activation)(gmodel)
+    gmodel = Dropout(0.2)(gmodel)
+    gmodel = BatchNormalization()(gmodel)
     #Conv Layer 4
-    gmodel.add(Conv2D(128, kernel_size = (3,3), activation=p_activation))
-    gmodel.add(MaxPooling2D((2,2)))
-    gmodel.add(Dropout(0.2))
-    gmodel.add(GlobalMaxPooling2D())
+    gmodel = Conv2D(128, kernel_size = (3,3), activation=p_activation)(gmodel)
+    gmodel = Dropout(0.2)(gmodel)
+    gmodel = BatchNormalization()(gmodel)
+    gmodel = MaxPooling2D(pool_size=(2, 2), strides=(2, 2))(gmodel)
+    output1 = Flatten()(gmodel)
     #
-    gmodel.add(Dense(256, activation=p_activation))
     #
-    gmodel.add(Dense(64, activation=p_activation))
     #
-    gmodel.add(Dense(1, activation="sigmoid"))
     #
-    gmodel.compile(loss="binary_crossentropy",
+    #
+    #
+    model = concatenate([output1, other_input])
+    #
+    model = Dense(256, activation=p_activation)(model)
+    model = Dropout(0.2)(model)
+    model = BatchNormalization()(model)
+    #
+    model = Dense(64, activation=p_activation)(model)
+    model = Dropout(0.2)(model)
+    model = BatchNormalization()(model)
+    #
+    predicts = Dense(1, activation="sigmoid")(model)
+    #
+    model = Model(inputs=[image_input, other_input], outputs=predicts)
+    model.compile(loss="binary_crossentropy",
         optimizer=Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0),
         metrics=["accuracy"])
-    gmodel.summary()
-    return gmodel
+    model.summary()
+    return model
 
 
 def get_callbacks(filepath, patience=2):
@@ -92,21 +114,21 @@ def get_callbacks(filepath, patience=2):
     return [es, msave]
 
 
-file_path = ".model_weights_8aug_diffstruct.hdf5"
+file_path = ".model_weights_inc_angle.hdf5"
 callbacks = get_callbacks(filepath=file_path, patience=100)
 
 tr=train['is_iceberg']
 target_train=np.concatenate((tr,tr,tr,tr,tr,tr,tr,tr), axis=0)
-X_train_cv, X_valid, y_train_cv, y_valid = train_test_split(X_train, target_train, random_state=1, train_size=0.75)
+X_train_cv, X_valid, y_train_cv, y_valid, ang_tr, ang_val = train_test_split(X_train, target_train, angles_train, random_state=1, train_size=0.75)
 
 #Without denoising, core features.
 import os
 gmodel=getModel()
-gmodel.fit(X_train_cv, y_train_cv,
+gmodel.fit([X_train_cv, ang_tr], y_train_cv,
           batch_size=24,
-          epochs=500,
+          epochs=250,
           verbose=1,
-          validation_data=(X_valid, y_valid),
+          validation_data=([X_valid, ang_val], y_valid),
           callbacks=callbacks)
 
 gmodel.load_weights(filepath=file_path)
